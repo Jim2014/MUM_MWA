@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Contact us</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Contact us</h1>
+    <form action="/contactus" method="post" >
+        <label>Full Name:</label><span class='errinfo'><%=errors?errors.name:''%></span>
+        <input type="text" name="fullname" id="fullname">
+        <label>Type:</label>
+        <select name="type">
+            <option value="suggestion">suggestion</option>
+            <option value="complaint">complaint</option>
+        </select>
+        <label>Message:</label><span class='errinfo'><%=errors?errors.msg:''%></span>
+        <textarea name="message" rows=10 cols=30></textarea>      
+        <input type="submit" value="Submit"></body>
+    </form>
+    
+    <% for(var e of data) {%>
+    <div class='msgBox'>
+    <div class='msgTitle'> <span> <%=e.type%></span> by  <span> <%=e.fullname%></span></div>
+    <div class='msgBody'> <%=e.message%></div>
+    </div>
+    <%}%>
+    
+  </body>
+</html>
