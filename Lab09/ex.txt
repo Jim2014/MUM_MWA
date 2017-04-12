@@ -1,0 +1,29 @@
+1.
+db.zips.aggregate([
+    {$match:{state:'IA'}}
+])
+
+2.
+db.zips.aggregate([
+    {$match:{pop:{$lt:1000}}}
+])
+
+3.
+db.zips.aggregate([
+    {$group:{_id:{'city':'$city','state':'$state'},
+     num:{$sum:1}
+     }},
+     {$match:{num:{$gt:1}}},
+     {$sort:{state:1,city:1}}
+])
+
+4.
+db.zips.aggregate([
+    {$group:{_id:{'city':'$city','state':'$state'},
+     pop:{$sum:'$pop'}
+     }},
+     {$sort:{state:1,pop:1}},
+     {$group:{_id:{'state':'$_id.state'},
+      city:{$first:'$_id.city'},
+      pop:{$first:'$pop'}}}
+])
